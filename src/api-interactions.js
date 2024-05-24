@@ -1,14 +1,12 @@
 const WEATHER_API_KEY = "34573fa62b5c47cd93243644241805";
 const BASE_URL = "http://api.weatherapi.com/v1";
 
-import { showLoadingMessage, hideMessage } from "./dom-manipulator";
-
 async function fetchWeatherData(url) {
   showLoadingMessage();
 
   try {
     const response = await fetch(url);
-    
+
     const data = await response.json();
 
     return data;
@@ -35,7 +33,7 @@ export async function fetchForecastData(location, days = 1) {
 
 function processForecastData(forecast) {
   console.log(forecast);
-  
+
   const location = {
     city: forecast.location.name,
     region: forecast.location.region,
@@ -50,7 +48,7 @@ function processForecastData(forecast) {
     temp_f: current.temp_f,
     feelslike_c: current.feelslike_c,
     feelslike_f: current.feelslike_f,
-  }
+  };
 
   const nextDaysForecast = [];
   forecast.forecast.forecastday.forEach((forecastDay) => {
@@ -64,10 +62,9 @@ function processForecastData(forecast) {
       date: forecastDay.date,
       icon: forecastDay.day.condition.icon,
       description: forecastDay.day.condition.text,
-    }
+    };
     nextDaysForecast.push(forecastData);
   });
-  
 
   return { location, currentForecast, nextDaysForecast };
 }

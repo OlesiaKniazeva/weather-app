@@ -1,5 +1,9 @@
 import { fetchForecastData } from "./api-interactions";
-import { showForecast, showNotFoundMessage, hideMessage } from "./dom-manipulator";
+import {
+  showForecast,
+  showNotFoundMessage,
+  hideMessage,
+} from "./dom-manipulator";
 
 import "./style.css";
 
@@ -11,19 +15,19 @@ const celsius = toggler.querySelector(".celsius");
 const fahrengheit = toggler.querySelector(".fahrengheit");
 
 let currentTemperatureUnit = celsius;
-let currentPlace = "Daqing";
+let currentPlace = "Moscow";
 
 const temperatureUnits = {
   celsius: "°C",
   fahrengheit: "°F",
 };
 
-
 toggler.addEventListener("click", toggleTemperatureUnit);
 button.addEventListener("click", getUserInput);
-userInput.addEventListener('focus', hideMessageBox);
+userInput.addEventListener("focus", hideMessageBox);
 
 processForecast(currentPlace);
+
 
 function hideMessageBox() {
   hideMessage();
@@ -66,7 +70,7 @@ function processForecast(place) {
 }
 
 function chooseForecastDataToShow(data) {
-  if (currentTemperatureUnit.classList.contains("celsius")) {    
+  if (currentTemperatureUnit.classList.contains("celsius")) {
     const celsiusData = prepareCelsiusData(data);
     showForecast(celsiusData);
   } else {
@@ -98,7 +102,7 @@ function prepareCelsiusData(data) {
     const celciusDay = {};
     for (const [key, value] of Object.entries(day)) {
       if (key.endsWith("_c")) {
-        celciusDay[key.slice(0, -2)] =  `${value} ${temperatureUnits.celsius}`;
+        celciusDay[key.slice(0, -2)] = `${value} ${temperatureUnits.celsius}`;
       } else if (!key.endsWith("_f")) {
         celciusDay[key] = value;
       }
@@ -110,35 +114,36 @@ function prepareCelsiusData(data) {
 }
 
 function prepareFahrengheitData(data) {
-    console.log("fahrengheit");
-    
-    const newData = {};
-  
-    newData.location = data.location;
-  
-    newData.currentForecast = {};
-    newData.nextDaysForecast = [];
-  
-    for (const [key, value] of Object.entries(data.currentForecast)) {
+  console.log("fahrengheit");
+
+  const newData = {};
+
+  newData.location = data.location;
+
+  newData.currentForecast = {};
+  newData.nextDaysForecast = [];
+
+  for (const [key, value] of Object.entries(data.currentForecast)) {
+    if (key.endsWith("_f")) {
+      newData.currentForecast[key.slice(0, -2)] =
+        `${value} ${temperatureUnits.fahrengheit}`;
+    } else if (!key.endsWith("_c")) {
+      newData.currentForecast[key] = value;
+    }
+  }
+
+  data.nextDaysForecast.forEach((day) => {
+    const fahrengheitDay = {};
+    for (const [key, value] of Object.entries(day)) {
       if (key.endsWith("_f")) {
-        newData.currentForecast[key.slice(0, -2)] =
+        fahrengheitDay[key.slice(0, -2)] =
           `${value} ${temperatureUnits.fahrengheit}`;
       } else if (!key.endsWith("_c")) {
-        newData.currentForecast[key] = value;
+        fahrengheitDay[key] = value;
       }
     }
-  
-    data.nextDaysForecast.forEach((day) => {
-      const fahrengheitDay = {};
-      for (const [key, value] of Object.entries(day)) {
-        if (key.endsWith("_f")) {
-          fahrengheitDay[key.slice(0, -2)] = `${value} ${temperatureUnits.fahrengheit}`;
-        } else if (!key.endsWith("_c")) {
-          fahrengheitDay[key] = value;
-        }
-      }
-      newData.nextDaysForecast.push(fahrengheitDay);
-    });
-  
-    return newData;
-  }
+    newData.nextDaysForecast.push(fahrengheitDay);
+  });
+
+  return newData;
+}
