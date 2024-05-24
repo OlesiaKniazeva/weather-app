@@ -1,6 +1,8 @@
 const WEATHER_API_KEY = "34573fa62b5c47cd93243644241805";
 const BASE_URL = "http://api.weatherapi.com/v1";
 
+import { showLoadingMessage, hideMessage } from "./dom-manipulator";
+
 async function fetchWeatherData(url) {
   showLoadingMessage();
 
