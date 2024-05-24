@@ -1,5 +1,5 @@
 const WEATHER_API_KEY = "34573fa62b5c47cd93243644241805";
-const BASE_URL = "http://api.weatherapi.com/v1";
+const BASE_URL = "https://api.weatherapi.com/v1";
 
 import { showLoadingMessage, hideMessage } from "./dom-manipulator";
 
@@ -34,8 +34,6 @@ export async function fetchForecastData(location, days = 1) {
 }
 
 function processForecastData(forecast) {
-  console.log(forecast);
-
   const location = {
     city: forecast.location.name,
     region: forecast.location.region,

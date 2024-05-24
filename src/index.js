@@ -80,8 +80,6 @@ function chooseForecastDataToShow(data) {
 }
 
 function prepareCelsiusData(data) {
-  console.log("celsius");
-
   const newData = {};
 
   newData.location = data.location;
@@ -114,8 +112,6 @@ function prepareCelsiusData(data) {
 }
 
 function prepareFahrengheitData(data) {
-  console.log("fahrengheit");
-
   const newData = {};
 
   newData.location = data.location;
