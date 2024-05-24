@@ -88,6 +88,16 @@ function createForecastCard(data) {
   return weatherCard;
 }
 
+export function showLoadingMessage() {
+  messageBox.style.visibility = "visible";
+  messageBox.textContent = 'Loading ...';
+}
+
+export function hideMessage() {
+  messageBox.textContent = '';
+  messageBox.style.visibility = 'hidden';
+}
+
 export function showNotFoundMessage(place) {
   const bold = document.createElement("span");
   bold.textContent = place;

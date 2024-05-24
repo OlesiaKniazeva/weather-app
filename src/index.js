@@ -1,11 +1,10 @@
 import { fetchForecastData } from "./api-interactions";
-import { showForecast, showNotFoundMessage } from "./dom-manipulator";
+import { showForecast, showNotFoundMessage, hideMessage } from "./dom-manipulator";
 
 import "./style.css";
 
 const userInput = document.getElementById("city-name");
 const button = document.getElementById("form-button");
-const messageBox = document.querySelector(".message-to-user");
 
 const toggler = document.querySelector(".temperature-toggler");
 const celsius = toggler.querySelector(".celsius");
@@ -27,7 +26,7 @@ userInput.addEventListener('focus', hideMessageBox);
 processForecast(currentPlace);
 
 function hideMessageBox() {
-  messageBox.style.visibility = "hidden";
+  hideMessage();
 }
 
 function toggleTemperatureUnit(event) {

@@ -85,7 +85,7 @@ label svg {
   min-height: 40px;
   width: fit-content;
 
-  color: rgb(246, 41, 5);
+  color: rgb(255, 255, 255);
   background-color: #d2e0f18e;
   padding: 4px 8px;
   border-radius: 3px;
@@ -176,6 +176,10 @@ label svg {
 .current-forecast .weather-feelslike {
   display: flex;
   justify-content: center;
+}
+
+.current-forecast .weather-description {
+  margin-bottom: 15px;
 }
 
 .forecast-container {
